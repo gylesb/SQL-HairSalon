@@ -1,0 +1,24 @@
+<h1>Welcome to the Hair Salon</h1>
+
+@if (@Model["stylist"].Count == 0)
+{
+  <h3>No stylists have been added yet!</h3>
+}
+
+<table>
+<tr>
+  <th><strong>Id</strong></th>
+  <th><strong>Stylist Name</strong></th>
+</tr>
+
+@foreach (var stylist in  @Model["stylist"])
+{
+  <tr>
+    <th>@stylist.GetId()</th>
+    <th><a href="/stylist/@stylist.GetStylistName()/@stylist.GetId()</a></th>
+  </tr>
+}
+</table>
+
+<a href="/client/add">Add Cuisine</a> <br>
+<a href="/client/list">View Cuisines</a>
