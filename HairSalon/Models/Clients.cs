@@ -49,22 +49,19 @@ namespace HairSalon.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"SELECT * FROM restaurants WHERE cuisine_id = @cuisine_id;";
+      cmd.CommandText = @"SELECT * FROM hairsalon WHERE client_id = @client_id;";
 
-      MySqlParameter cuisineId = new MySqlParameter();
-      cuisineId.ParameterName = "@cuisine_id";
-      cuisineId.Value = this._id;
-      cmd.Parameters.Add(cuisineId);
+      MySqlParameter clientId = new MySqlParameter();
+      clientId.ParameterName = "@client_id";
+      clientId.Value = this._id;
+      cmd.Parameters.Add(clientId);
 
       var rdr = cmd.ExecuteReader() as MySqlDataReader;
       while (rdr.Read())
       {
-        int restaurantId = rdr.GetInt32(0);
-        string restaurantName = rdr.GetString(1);
-        string restaurantType = rdr.GetString(2);
-        int restaurantClientId = rdr.GetInt32(3);
-        int restaurantPrice = rdr.GetInt32(4);
-        Stylist newStylist = new Stylist(restaurantName, restaurantType, restaurantClientId, restaurantPrice, restaurantId);
+        int stylistId = rdr.GetInt32(0);
+        string stylistName = rdr.GetString(1);
+        Stylist newStylist = new Stylist(stylistName, stylistId);
         allClientStylists.Add(newStylist);
       }
       conn.Close();
@@ -81,7 +78,7 @@ namespace HairSalon.Models
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"INSERT INTO cuisine (name) VALUES (@name);";
+      cmd.CommandText = @"INSERT INTO client (name) VALUES (@name);";
 
       MySqlParameter name = new MySqlParameter();
       name.ParameterName = "@name";

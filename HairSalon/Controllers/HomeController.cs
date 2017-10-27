@@ -73,7 +73,7 @@ namespace HairSalon.Controllers
     [HttpPost("/{name}/{id}/stylistlist")]
     public ActionResult AddStylistViewStylistList(int id)
     {
-      Stylist newStylist = new Stylist(Request.Form["stylist-name"], Request.Form["stylist-type"], id, int.Parse(Request.Form["stylist-price"]));
+      Stylist newStylist = new Stylist(Request.Form["stylist-name"]);
       newStylist.Save();
       Dictionary<string, object> model = new Dictionary<string, object>();
       // Client is selected as an object

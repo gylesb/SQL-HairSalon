@@ -8,12 +8,10 @@ namespace HairSalon.Models
   {
     private int _id;
     private string _stylistName;
-    private string _clientName;
 
-    public Stylist(string stylistName, string _clientName, int id = 0)
+    public Stylist(string stylistName, int Id = 0)
     {
       _id = Id;
-      _clientName = clientName;
     }
 
     public override bool Equals(System.Object otherStylist)
@@ -26,26 +24,20 @@ namespace HairSalon.Models
       {
         Stylist newStylist = (Stylist) otherStylist;
         bool idEquality = (this.GetId() == newStylist.GetId());
-        bool stylistNameEquality = (this.GetStylistName() == newStylistName.GetStylistName());
-        bool clientNameEquality = (this.GetClientName() == newClientName.GetClientName());
+        bool stylistEquality = (this.GetStylistName() == newStylist.GetStylistName());
 
-        return (stylistNameEquality && clientNameEquality && idEquality);
+        return (stylistEquality && idEquality);
       }
     }
 
     public override int GetHashCode()
     {
-      return this.GetName().GetHashCode();
+      return this.GetStylistName().GetHashCode();
     }
 
     public string GetStylistName()
     {
       return _stylistName;
-    }
-
-    public string GetClientName()
-    {
-      return _clientName;
     }
 
     public int GetId()
@@ -63,13 +55,8 @@ namespace HairSalon.Models
 
       MySqlParameter stylist = new MySqlParameter();
       stylist.ParameterName = "@stylist";
-      stylist.Value = this.stylistName;
+      stylist.Value = this.stylist;
       cmd.Parameters.Add(stylist);
-
-      MySqlParameter client = new MySqlParameter();
-      client.ParameterName = "@client";
-      client.Value = this.clientName;
-      cmd.Parameters.Add(client);
 
       cmd.ExecuteNonQuery();
       _id = (int) cmd.LastInsertedId;
@@ -101,7 +88,7 @@ namespace HairSalon.Models
       {
         conn.Dispose();
       }
-      return allStylists
+      return allStylists;
     }
 
     public static void DeleteAll()
@@ -130,7 +117,7 @@ namespace HairSalon.Models
 
       MySqlParameter searchId = new MySqlParameter();
       searchId.ParameterName = "@thisId";
-      searchId.Value = id;
+      searchId.Value = Id;
       cmd.Parameters.Add(searchId);
 
       var rdr = cmd.ExecuteReader() as MySqlDataReader;
@@ -173,7 +160,7 @@ namespace HairSalon.Models
       cmd.Parameters.Add(stylist);
 
       cmd.ExecuteNonQuery();
-      _stylistName = newStylist;
+      _stylistName = stylist;
 
       conn.Close();
       if (conn != null)
@@ -182,7 +169,7 @@ namespace HairSalon.Models
       }
     }
 
-    public void DeleteRestaurant()
+    public void DeleteStylist()
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();

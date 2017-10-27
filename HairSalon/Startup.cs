@@ -1,20 +1,42 @@
-using System.IO;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace HairSalonApp
+namespace HairSalon
 {
-    public class Program
+    public class Startup
     {
-        public static void Main(string[] args)
+        public Startup(IHostingEnvironment env)
         {
-            var host = new WebHostBuilder()
-                .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseStartup<Startup>()
-                .Build();
-
-            host.Run();
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddEnvironmentVariables();
+            Configuration = builder.Build();
         }
+
+        public IConfigurationRoot Configuration { get; }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc();
+        }
+
+        public void Configure(IApplicationBuilder app)
+        {
+            app.UseDeveloperExceptionPage();
+            app.UseStaticFiles();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
+        }
+    }
+
+    public static class DBConfiguration
+    {
+        public static string ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=hairsalon;";
     }
 }
