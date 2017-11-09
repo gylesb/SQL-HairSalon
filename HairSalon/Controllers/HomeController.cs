@@ -43,10 +43,28 @@ namespace HairSalon.Controllers
       return View("ViewClient", allClients);
     }
 
+    [HttpPost("/stylist/list")]
+    public ActionResult WriteStylists()
+    {
+      Stylist newStylist = new Stylist(Request.Form["stylist-name"]);
+      newStylist.Save();
+      List<Stylist> allStylists = Stylist.GetAll();
+
+      return View("ViewStylist", allStylists);
+    }
+
+    [HttpGet("/stylist/list")]
+    public ActionResult ReadStylists()
+    {
+      List<Stylist> allStylists = Stylist.GetAll();
+
+      return View("ViewStylist", allStylists);
+    }
+
+
     [HttpGet("/{name}/{id}/stylistlist")]
     public ActionResult ViewStylistList(int id)
     {
-      // Console.WriteLine("Hewwo");
 
       Dictionary<string, object> model = new Dictionary<string, object>();
       // Client is selected as an object

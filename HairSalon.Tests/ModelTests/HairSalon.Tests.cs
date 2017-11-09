@@ -19,7 +19,7 @@ namespace HairSalon.Tests
     public void Dispose()
     {
       Stylist.DeleteAll();
-      Cuisine.DeleteAll();
+      Client.DeleteAll();
     }
 
     [TestMethod]
@@ -55,7 +55,7 @@ namespace HairSalon.Tests
       List<Stylist> testList = new List<Stylist>{testStylist};
 
       //Assert
-      CollectionAssert.AreEqual(testList, result);
+      Assert.AreEqual(result, testList);
     }
 
     [TestMethod]
@@ -72,7 +72,7 @@ namespace HairSalon.Tests
       int testId = testStylist.GetId();
 
       //Assert
-      Assert.AreEqual(testId, result);
+      Assert.AreEqual(result, testId);
     }
 
     [TestMethod]
@@ -94,12 +94,12 @@ namespace HairSalon.Tests
     {
       // Arrange
       string name = "Jen";
-      Stylist testStylist = new Stylist(stylistName, id);
+      Stylist testStylist = new Stylist(name);
       testStylist.Save();
       string newName = "Helen";
 
       // Act
-      testStylist.UpdateName(newStylistName);
+      testStylist.UpdateName(newName);
 
       string result = Stylist.Find(testStylist.GetId()).GetName();
 
