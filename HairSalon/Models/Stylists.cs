@@ -82,6 +82,7 @@ namespace HairSalon.Models
         string stylistName = rdr.GetString(1);
 
         Stylist newStylist = new Stylist(stylistName, stylistId);
+        allStylists.Add(newStylist);
       }
       conn.Close();
 
