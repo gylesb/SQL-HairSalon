@@ -43,6 +43,12 @@ namespace HairSalon.Controllers
       return View("ViewClient", allClients);
     }
 
+    [HttpGet("/stylist/add")]
+    public ActionResult AddStylist()
+    {
+      return View();
+    }
+
     [HttpPost("/stylist/list")]
     public ActionResult WriteStylists()
     {

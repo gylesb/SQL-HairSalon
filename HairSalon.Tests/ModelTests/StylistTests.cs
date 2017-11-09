@@ -44,7 +44,7 @@ namespace HairSalon.Tests
     }
 
     [TestMethod]
-    public void Save_SavesToDatabase_StylistList()
+    public void Save_SavesStylistToDatabase_StylistList()
     {
       //Arrange
       Stylist testStylist = new Stylist("Jen");
@@ -55,17 +55,17 @@ namespace HairSalon.Tests
       List<Stylist> testList = new List<Stylist>{testStylist};
 
       //Assert
-      Assert.AreEqual(result, testList);
+      CollectionAssert.AreEqual(result, testList);
     }
 
     [TestMethod]
-    public void Save_AssignsIdToObject_Id()
+    public void Save_DatabaseAssignsIdToStylist_Id()
     {
       //Assert
       Stylist testStylist = new Stylist("Jen");
+      testStylist.Save();
 
       //Act
-      testStylist.Save();
       Stylist savedStylist = Stylist.GetAll()[0];
 
       int result = savedStylist.GetId();

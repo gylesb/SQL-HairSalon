@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Oct 27, 2017 at 08:23 PM
+-- Generation Time: Nov 09, 2017 at 06:42 PM
 -- Server version: 5.6.35
 -- PHP Version: 7.0.15
 
@@ -17,19 +17,33 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `first_last`
+-- Database: `hairsalon`
 --
+CREATE DATABASE IF NOT EXISTS `hairsalon` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `hairsalon`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hairsalon`
+-- Table structure for table `client`
 --
 
-CREATE TABLE `hairsalon` (
+DROP TABLE IF EXISTS `client`;
+CREATE TABLE `client` (
   `id` int(11) NOT NULL,
-  `stylist` varchar(255) NOT NULL,
-  `client` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stylist`
+--
+
+DROP TABLE IF EXISTS `stylist`;
+CREATE TABLE `stylist` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -37,9 +51,15 @@ CREATE TABLE `hairsalon` (
 --
 
 --
--- Indexes for table `hairsalon`
+-- Indexes for table `client`
 --
-ALTER TABLE `hairsalon`
+ALTER TABLE `client`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `stylist`
+--
+ALTER TABLE `stylist`
   ADD PRIMARY KEY (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
